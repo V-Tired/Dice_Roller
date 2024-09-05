@@ -4,7 +4,6 @@ import random
 TITLE = ("chiller", 38, "bold")
 CONTENT = ("book antiqua", 12, "bold")
 FONT = ("arial", 12, "bold")
-
 BLOOD = "#650000"
 DARK = "#421212"
 MID = "#9B3922"
@@ -13,6 +12,8 @@ LIGHT = "#F2613F"
 
 
 class AddHunger:
+    """A class that controls the creation, rolling, and removal of hunger dice.
+    It also updates the stats to display total count of all rolls."""
     def __init__(self):
         self.dice_num = 0
         self.dice_positions = [[2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [3, 2], [3, 3], [3, 4]]
@@ -91,6 +92,8 @@ class AddHunger:
 
 
 class AddDice:
+    """A class that controls the creation, rolling, and removal of regular dice. It also allows for the re-roll of
+    up to 3 regular dice under the value of 6 at the cost of one in-game willpower."""
     def __init__(self):
         self.dice_num = 0
         self.dice_positions = [[0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [1, 2], [1, 3], [1, 4], [1, 5], [1, 6]]
@@ -159,7 +162,6 @@ class AddDice:
         remove_hunger.grid_forget()
         remove_dice.grid_forget()
 
-
     def re_roll(self):
         re_roll_button.grid_forget()
         re_rollable = []
@@ -219,7 +221,9 @@ class AddDice:
         )
         stats.grid(column=0, row=11, columnspan=4, pady=20)
 
+
 def reset():
+    """Resets all graphics and values to their starting position for additional rolls."""
     while add.dice_num > 0:
         for _ in add.dice_list:
             add.remove_dice()
@@ -248,32 +252,34 @@ def reset():
     add_hunger.grid(column=2, row=1, padx=3, pady=15)
     remove_hunger.grid(column=3, row=1, padx=3)
 
-# Window and Canvas---------------------------------
+
+# Window and Canvas----------------------------------------
 window = Tk()
 window.config(bg=DARK, padx=20, pady=20, highlightthickness=0,)
 window.resizable(False, False)
 window.minsize(400, 650)
+# Creating dice class objects -----------------------------
 hunger = AddHunger()
 add = AddDice()
-# Buttons-------------------------------------------
+# Buttons--------------------------------------------------
 add_dice = Button(
-    text="Add\nd10", height=2, width=10, bg=GREY, fg="white", font=CONTENT, highlightthickness=0, relief="solid", activebackground=LIGHT,
-    command=add.new_dice)
+    text="Add\nd10", height=2, width=10, bg=GREY, fg="white", font=CONTENT, highlightthickness=0,
+    relief="solid", activebackground=LIGHT, command=add.new_dice)
 add_dice.grid(column=0, row=1, padx=3)
 
 remove_dice = Button(
-    text="Remove\nd10", height=2, width=10, bg=GREY, fg="white", font=CONTENT, highlightthickness=0, relief="solid", activebackground=LIGHT,
-    command=add.remove_dice)
+    text="Remove\nd10", height=2, width=10, bg=GREY, fg="white", font=CONTENT, highlightthickness=0,
+    relief="solid", activebackground=LIGHT, command=add.remove_dice)
 remove_dice.grid(column=1, row=1, padx=3)
 
 add_hunger = Button(
-    text="Add\nHunger D10", height=2, width=10, bg=BLOOD, fg="white", font=CONTENT, highlightthickness=0, relief="solid", activebackground=LIGHT,
-    command=hunger.new_dice)
+    text="Add\nHunger D10", height=2, width=10, bg=BLOOD, fg="white", font=CONTENT, highlightthickness=0,
+    relief="solid", activebackground=LIGHT, command=hunger.new_dice)
 add_hunger.grid(column=2, row=1, padx=3, pady=15)
 
 remove_hunger = Button(
-    text="Remove\nHunger D10", height=2, width=10, bg=BLOOD, fg="white", font=CONTENT, highlightthickness=0, relief="solid", activebackground=LIGHT,
-    command=hunger.remove_dice)
+    text="Remove\nHunger D10", height=2, width=10, bg=BLOOD, fg="white", font=CONTENT, highlightthickness=0,
+    relief="solid", activebackground=LIGHT, command=hunger.remove_dice)
 remove_hunger.grid(column=3, row=1, padx=3)
 
 roll = Button(
@@ -288,20 +294,10 @@ re_roll_button = Button(
     text="Reroll", bg=BLOOD, fg="white", font=CONTENT, highlightthickness=0, relief="solid", activebackground=LIGHT,
     command=add.re_roll)
 
-# Labels--------------------------------------------
-header = Label(
-    text="Vampire Masquerade Dice Roller",
-    justify="center",
-    bg=DARK,
-    fg=LIGHT,
-    font=TITLE,
-)
+# Labels---------------------------------------------------
+header = Label(text="Vampire Masquerade Dice Roller", justify="center", bg=DARK, fg=LIGHT, font=TITLE)
 header.grid(column=0, row=0, columnspan=4)
-stats = Label(
-    text="",
-    font=FONT,
-    bg=DARK,
-    fg="white",
-)
+
+stats = Label(text="", font=FONT, bg=DARK, fg="white")
 
 window.mainloop()
