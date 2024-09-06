@@ -23,18 +23,17 @@ class AddHunger:
         self.crit_success = 0
         self.crit_fail = 0
         self.rolled = []
+        self.reg_image = PhotoImage(file="images/STILL.png").subsample(18, 18)
 
     def new_dice(self):
         if self.dice_num < 7:
             column = self.dice_positions[self.dice_num][0]
             row = self.dice_positions[self.dice_num][1]
-            img = PhotoImage("Reg.png").subsample(23, 23)
+
             dice = Label(
-                image=img,
+                image=self.reg_image,
                 bg=BLOOD,
                 fg="white",
-                height=4,
-                width=8,
                 highlightthickness=2,
                 highlightbackground="black"
             )
@@ -102,6 +101,7 @@ class AddDice:
         self.failures = 0
         self.crit = 0
         self.rolled = []
+        self.reg_image = PhotoImage(file="images/STILL.png").subsample(18, 18)
 
     def new_dice(self):
         if self.dice_num < 10:
@@ -109,8 +109,7 @@ class AddDice:
             row = self.dice_positions[self.dice_num][1]
 
             dice = Label(
-                height=4,
-                width=8,
+                image=self.reg_image,
                 bg=GREY,
                 fg="white",
                 highlightthickness=2,
